@@ -37,6 +37,11 @@ abstract class FakeEntity implements FakeEntityInterface
     {
         return $this->get ($key);
     }
+    
+    public function listFields ()
+    {
+        return array_keys ($this->_data);
+    }
 }
 
 
