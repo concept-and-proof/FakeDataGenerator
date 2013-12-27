@@ -18,7 +18,14 @@ use Concept\FakeDataGenerator\Storage\Database;
 
 function getStorage ()
 {
-    return new Database ();
+    $options = [
+        'host'     => 'localhost',
+        'database' => 'test',
+        'login'    => 'root',
+        'password' => 'root'
+    ];
+    
+    return new Database ($options);
 }
 
 $app = new Application ();

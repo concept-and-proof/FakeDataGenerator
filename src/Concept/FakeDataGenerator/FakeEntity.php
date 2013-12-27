@@ -9,6 +9,8 @@ namespace Concept\FakeDataGenerator;
 
 abstract class FakeEntity implements FakeEntityInterface
 {
+    public $tableName = null;
+    
     abstract public function fillInData ();
     
     protected $_data = [];
