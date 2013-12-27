@@ -14,6 +14,4 @@ interface FakeEntityInterface
     public function listFields ();
     
     public function get ($key);
-    
-    public function set ($key, $value);
 }

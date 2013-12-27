@@ -20,7 +20,7 @@ abstract class FakeEntity implements FakeEntityInterface
         $this->_data [(string)$key] = $value;
     }
     
-    protected function get ($key)
+    public function get ($key)
     {
         $key = (string)$key;
         
