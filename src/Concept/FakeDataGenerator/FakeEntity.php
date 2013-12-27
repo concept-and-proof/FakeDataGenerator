@@ -11,7 +11,32 @@ abstract class FakeEntity implements FakeEntityInterface
 {
     abstract public function fillInData ();
     
-    // some logic here later
+    protected $_data = [];
+    
+    protected function set ($key, $value)
+    {
+        $this->_data [(string)$key] = $value;
+    }
+    
+    protected function get ($key)
+    {
+        $key = (string)$key;
+        
+        if ( ! array_key_exists ($key, $this->_data) )
+        {
+            throw new \UnexpectedValueException (
+                "Unable to find key {$key}"
+            );
+        }
+        
+        return $this->_data [$key];
+    }
+    
+    // magic method
+    public function __get ($key)
+    {
+        return $this->get ($key);
+    }
 }
 
 
