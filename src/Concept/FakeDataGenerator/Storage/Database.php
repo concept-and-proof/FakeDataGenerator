@@ -26,7 +26,9 @@ class Database implements StorageInterface
         // $tableName property must be specified in order to make
         // database storage driver work properly
         
-        if ( ! property_exists ( $fakeObject, 'tableName' ) )
+        if ( ! property_exists ( $fakeObject, 'tableName' ) 
+                || is_null ($fakeObject->tableName) 
+           )
         {
             throw new \InvalidArgumentException (
                 sprintf (

@@ -12,11 +12,13 @@ use Concept\FakeDataGenerator\Generator\AgeGenerator;
 
 class User extends FakeEntity
 {
+    public $tableName = 'users';
+    
     public function fillInData ()
     {
         $limits = [
-            'minAge' => 16,
-            'maxAge' => 25
+            'minAge' => 18,
+            'maxAge' => 65
         ];
         
         $this->set ('age', AgeGenerator::generate ($limits));
