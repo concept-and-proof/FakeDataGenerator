@@ -15,7 +15,7 @@ class Database implements StorageInterface
     
     public function __construct (array $options)
     {
-        list ($host, $database, $login, $password) = $options;
+        list ($host, $database, $login, $password) = array_values ($options);
         
         $dsn = sprintf ('mysql:host=%s;dbname=%s', $host, $database);
         $this->_pdo = new \PDO ($dsn, $login, $password);
