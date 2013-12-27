@@ -9,7 +9,7 @@ namespace Concept\FakeDataGenerator\Generator;
 
 class AgeGenerator implements GeneratorInterface
 {
-    public function generate ( $additionalInfo = [] )
+    public static function generate ( $additionalInfo = [] )
     {
         $minAge = 1; 
         $maxAge = 100;
@@ -21,7 +21,7 @@ class AgeGenerator implements GeneratorInterface
         
         if ( array_key_exists ('maxAge', $additionalInfo) )
         {
-            $maxAge = (int)$additionalInfo ['maxInfo'];
+            $maxAge = (int)$additionalInfo ['maxAge'];
         }
         
         return rand ($minAge, $maxAge);

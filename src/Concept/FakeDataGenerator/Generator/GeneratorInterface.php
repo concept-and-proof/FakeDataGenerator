@@ -9,5 +9,5 @@ namespace Concept\FakeDataGenerator\Generator;
 
 interface GeneratorInterface 
 {
-    public function generate ( $additionalInfo = [] );
+    public static function generate ( $additionalInfo = [] );
 }
