@@ -12,6 +12,8 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputOption;
 
+use Concept\FakeDataGenerator\FakeObjectFactory;
+
 class CreateFakeCommand extends Command
 {
     protected function configure ()
@@ -43,7 +45,22 @@ class CreateFakeCommand extends Command
             );
         }
         
-        $output->writeln ('Everything is OK!');
+        $output->writeln (
+            "<info>Generating {$amount} '{$entity}' objects...</info>"
+        );
+            
+        $factory = FakeObjectFactory::create ();
+        $factory->setAmount ($amount);
+        $factory->setFakeObject (new $fullClassName);
+        
+        $storage = getStorage ();
+        
+        foreach ($factory->produce () as $fakeObject)
+        {
+            $storage->addOne ($fakeObject);
+        }
+        
+        $output->writeln ('<info>Completed successfully</info>');
     }
 }
 

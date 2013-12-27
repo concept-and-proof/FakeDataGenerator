@@ -7,7 +7,7 @@
 
 namespace Concept\FakeDataGenerator\Storage;
 
-use Concept\FakeDataGenerator\FakeEntity;
+use Concept\FakeDataGenerator\FakeEntityInterface;
 use Concept\FakeDataGenerator\FakeObjectCollection;
 
 class Database implements StorageInterface
@@ -17,7 +17,7 @@ class Database implements StorageInterface
         
     }
 
-    public function addOne ( FakeEntity $fakeObject )
+    public function addOne ( FakeEntityInterface $fakeObject )
     {
         
     }
