@@ -13,3 +13,9 @@ date_default_timezone_set ('UTC');
 require_once __DIR__ . '/vendor/autoload.php';
 
 
+use Symfony\Component\Console\Application;
+use Concept\FakeDataGenerator\Command\CreateFakeCommand;
+
+$app = new Application ();
+$app->add (new CreateFakeCommand ());
+$app->run ();

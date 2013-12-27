@@ -7,11 +7,7 @@
 
 namespace Concept\FakeDataGenerator;
 
-abstract class FakeEntity implements FakeEntityInterface
+interface FakeEntityInterface
 {
-    abstract public function fillInData ();
-    
-    // some logic here later
+    public function fillInData ();
 }
-
-
