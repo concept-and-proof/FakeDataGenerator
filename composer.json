@@ -1,6 +1,7 @@
 {
     "require" : {
-        "symfony/console" : "v2.4.0"
+        "symfony/console" : "v2.4.0",
+        "illuminate/database" : "4.1.*"
     },
     
     "autoload" : {
