@@ -9,16 +9,13 @@ namespace Concept\FakeDataGenerator\Storage;
 
 use Concept\FakeDataGenerator\FakeEntityInterface;
 
+use Illuminate\Database\Capsule\Manager as Capsule;
+
 class Database implements StorageInterface
-{
-    protected $_pdo = null;
-    
-    public function __construct (array $options)
+{   
+    public function __construct (Capsule $connection)
     {
-        list ($host, $database, $login, $password) = array_values ($options);
-        
-        $dsn = sprintf ('mysql:host=%s;dbname=%s', $host, $database);
-        $this->_pdo = new \PDO ($dsn, $login, $password);
+        $connection->setAsGlobal ();    
     }
     
     public function addOne ( FakeEntityInterface $fakeObject )
@@ -40,47 +37,12 @@ class Database implements StorageInterface
         
         $tableName = $fakeObject->tableName;
         
-        $statement = sprintf (
-            'INSERT INTO `%s` %s VALUES %s',
-            $tableName,
-            $this->_compileTableNames ($fakeObject),    
-            $this->_compileInsertionBlock ($fakeObject) 
-        );
-        
-        $statement = $this->_pdo->prepare ($statement);
-        
-        foreach ($fakeObject->listFields () as $field)
-        {
-            $statement->bindValue ( 
-                (':' . $field) ,
-                $fakeObject->get ($field) 
-            );
-        }
-
-        return $statement->execute ();
-    }
-    
-    protected function _compileInsertionBlock ( FakeEntityInterface $fakeObject )
-    {
-        $data   = [];
-        
-        foreach ($fakeObject->listFields () as $field)
-        {
-            $data [] = sprintf (':%s', $field);
-        }
-        
-        return sprintf ( '(%s)', implode (',', $data) );
-    }
-    
-    protected function _compileTableNames ( FakeEntityInterface $fakeObject )
-    {
         $data = [];
-        
         foreach ($fakeObject->listFields () as $field)
         {
-            $data [] = sprintf ('`%s`', $field);
+            $data [$field] = $fakeObject->get ($field);
         }
         
-        return sprintf ('(%s)', implode (',', $data));
-    }
+        return Capsule::table ($tableName)->insert ($data);
+    }    
 }

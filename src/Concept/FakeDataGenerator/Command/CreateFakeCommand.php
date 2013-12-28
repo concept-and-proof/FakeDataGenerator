@@ -16,6 +16,13 @@ use Concept\FakeDataGenerator\FakeObjectFactory;
 
 class CreateFakeCommand extends Command
 {
+    private $_container = null;
+    
+    public function setDiContainer (\Pimple $container)
+    {
+        $this->_container = $container;
+    }
+    
     protected function configure ()
     {
         $this->setName ('fake:create');
@@ -53,7 +60,12 @@ class CreateFakeCommand extends Command
         $factory->setAmount ($amount);
         $factory->setFakeObject (new $fullClassName);
         
-        $storage = getStorage ();
+        if (is_null ($this->_container))
+        {
+            throw new \LogicException ();
+        }
+        
+        $storage = $this->_container ['storage'];
         
         foreach ($factory->produce () as $fakeObject)
         {
